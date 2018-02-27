@@ -3,8 +3,10 @@ module.exports = function (window, source) {
   if (selection.isCollapsed) return
 
   var anchor = selection.anchorNode
+  if (anchor.nodeType === 3) anchor = anchor.parentNode
   var anchorOffset = selection.anchorOffset
   var focus = selection.focusNode
+  if (focus.nodeType === 3) focus = focus.parentNode
   var focusOffset = selection.focusOffset
 
   var bothCommonMark = (
