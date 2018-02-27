@@ -17,14 +17,8 @@ test(
     }
   },
   {
-    anchor: {
-      line: 0,
-      character: 0
-    },
-    focus: {
-      line: 1,
-      character: 2
-    }
+    anchor: {line: 0, character: 0},
+    focus: {line: 1, character: 2}
   }
 )
 
@@ -42,14 +36,8 @@ test(
     }
   },
   {
-    anchor: {
-      line: 0,
-      character: 0
-    },
-    focus: {
-      line: 2,
-      character: 1
-    }
+    anchor: {line: 0, character: 0},
+    focus: {line: 2, character: 1}
   }
 )
 

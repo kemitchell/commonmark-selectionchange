@@ -42,10 +42,9 @@ function withOffset (position, offset, lineLengths) {
     var line = position.start.line
     while (true) {
       var lineLength = lineLengths[line]
-      if (lineLength < character) {
-        character -= lineLength
-        line++
-      } else break
+      if (lineLength >= character) break
+      character -= lineLength
+      line++
     }
     return {line, character}
   }
