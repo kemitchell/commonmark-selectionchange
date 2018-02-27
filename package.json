@@ -1,0 +1,15 @@
+{
+  "name": "commonmark-selectionchange",
+  "version": "0.0.0",
+  "description": "compute character positions of DOM selections in CommonMark renderings",
+  "author": "Kyle E. Mitchell <kyle@kemitchell.com> (https://kemitchell.com/)",
+  "repository": "kemitchell/commonmark-selectionchange.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "commonmark": "^0.28.1",
+    "jsdom": "^11.6.2",
+    "tape": "^4.9.0"
+  }
+}
