@@ -55,9 +55,9 @@ test(
 
 function test (name, source, makeEvent, expected) {
   tape(name, function (test) {
-    var markup = renderCommonMark(source)
-    var dom = new JSDOM(markup)
-    var window = dom.window
+    var markup = renderWithSourcePositions(source)
+    var jsdom = new JSDOM(markup)
+    var window = jsdom.window
     window.getSelection = function () {
       return makeEvent(window)
     }
@@ -66,7 +66,7 @@ function test (name, source, makeEvent, expected) {
   })
 }
 
-function renderCommonMark (source) {
+function renderWithSourcePositions (source) {
   var parser = new commonmark.Parser()
   var renderer = new commonmark.HtmlRenderer({
     sourcepos: true
