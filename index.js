@@ -1,4 +1,4 @@
-module.exports = function (window, markup) {
+module.exports = function (window, source) {
   var selection = window.getSelection()
   if (selection.isCollapsed) return
 
@@ -18,10 +18,11 @@ module.exports = function (window, markup) {
   var anchorPosition = parseSourcePosition(anchor)
   var focusPosition = parseSourcePosition(focus)
 
-  var lines = markup.split('\n')
-  var lineLengths = lines.map(function (line) {
-    return line.length
-  })
+  var lineLengths = source
+    .split('\n')
+    .map(function (line) {
+      return line.length
+    })
 
   return {
     anchor: withOffset(anchorPosition, anchorOffset, lineLengths),
@@ -30,15 +31,24 @@ module.exports = function (window, markup) {
 }
 
 function withOffset (position, offset, lineLengths) {
-  var returned = {}
   var onOneLine = position.start.line === position.end.line
   if (onOneLine) {
     return {
-      line: position.start.line - 1,
-      character: position.start.character + offset - 1
+      line: position.start.line,
+      character: position.start.character + offset
     }
+  } else {
+    var character = offset
+    var line = position.start.line
+    while (true) {
+      var lineLength = lineLengths[line]
+      if (lineLength < character) {
+        character -= lineLength
+        line++
+      } else break
+    }
+    return {line, character}
   }
-  return returned
 }
 
 function isCommonMark (node) {
@@ -55,12 +65,12 @@ function parseSourcePosition (node) {
   var match = RE.exec(positionOf(node))
   return {
     start: {
-      line: parseInt(match[1]),
-      character: parseInt(match[2])
+      line: parseInt(match[1]) - 1,
+      character: parseInt(match[2]) - 1
     },
     end: {
-      line: parseInt(match[3]),
-      character: parseInt(match[4])
+      line: parseInt(match[3]) - 1,
+      character: parseInt(match[4]) - 1
     }
   }
 }
